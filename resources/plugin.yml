@@ -1,0 +1,7 @@
+main: org.serenitymc.serenityTweaks.SerenityTweaks
+
+name: SerenityTweaks
+version: 0.0.0
+description:  A Bukkit plugin created for the Serenity community that adds simple, vanilla-like features.
+
+commands:
