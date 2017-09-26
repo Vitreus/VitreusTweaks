@@ -1,7 +1,23 @@
-main: org.serenitymc.serenityTweaks.SerenityTweaks
+main: online.vitreusmc.vitreusTweaks.VitreusTweaks
 
-name: SerenityTweaks
-version: 0.0.0
-description:  A Bukkit plugin created for the Serenity community that adds simple, vanilla-like features.
+name: VitreusTweaks
+version: 0.0.1
+description:  A Bukkit plugin created for the Vitreus Minecraft community that adds simple, vanilla-like features.
+permissions:
+  module.gags:
+    description: Allows the execution of gag commands.
+    default: false
 
 commands:
+  manipulate_armor_stand:
+    description: Allows you to manipulate nearby armorstands.
+    usage: /mas
+    aliases: [as, mas, armorstand]
+  sleepy:
+    description: Announce your sleepiness and help throw the sun up into the sky!
+    usage: /sleepy
+    aliases: [ok, sleep]
+  pickup:
+    description: Picksup a nearby entity!
+    usage: /pickup
+    permission: module.gags
