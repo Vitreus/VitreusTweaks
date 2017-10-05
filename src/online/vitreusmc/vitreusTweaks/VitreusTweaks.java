@@ -52,7 +52,7 @@ public class VitreusTweaks extends JavaPlugin {
 		CommandExecutor sleepyCommand = new SleepyCommand();
 		CommandExecutor pickupCommand = new PickupCommand();
 		
-		getCommand("manipulate_armor_stand").setExecutor(manipulateArmorStandCommand);
+		getCommand("armorstand").setExecutor(manipulateArmorStandCommand);
 		getCommand("sleepy").setExecutor(sleepyCommand);
 		getCommand("pickup").setExecutor(pickupCommand);			
 	}
