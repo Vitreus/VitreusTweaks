@@ -1,4 +1,4 @@
-package online.vitreusmc.vitreusTweaks.armorStand.ui;
+package online.vitreusmc.vitreusTweaks.armorstand.ui;
 
 import org.bukkit.util.EulerAngle;
 

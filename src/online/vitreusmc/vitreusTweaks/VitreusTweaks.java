@@ -8,10 +8,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import online.vitreusmc.vitreusTweaks.armorStand.ManipulateArmorStandCommand;
+import online.vitreusmc.vitreusTweaks.armorstand.ManipulateArmorStandCommand;
 import online.vitreusmc.vitreusTweaks.gags.PickupCommand;
-import online.vitreusmc.vitreusTweaks.sleepVoting.SleepListener;
-import online.vitreusmc.vitreusTweaks.sleepVoting.SleepyCommand;
+import online.vitreusmc.vitreusTweaks.sleep.SleepListener;
+import online.vitreusmc.vitreusTweaks.sleep.SleepyCommand;
 
 // Main plugin class. Everything starts here.
 public class VitreusTweaks extends JavaPlugin {

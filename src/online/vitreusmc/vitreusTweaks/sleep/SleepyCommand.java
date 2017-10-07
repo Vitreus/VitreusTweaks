@@ -1,4 +1,4 @@
-package online.vitreusmc.vitreusTweaks.sleepVoting;
+package online.vitreusmc.vitreusTweaks.sleep;
 
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -20,7 +20,9 @@ public class SleepyCommand implements CommandExecutor {
 		player = (Player) sender;
 		world = player.getWorld();
 		
-		SleepManager.addSleepyPlayer(player);
+		if (SleepManager.isSomeoneSleeping() && !(SleepManager.getSleepyPlayers().contains(player)) && !(SleepManager.getSleepingPlayers().contains(player))) {
+			SleepManager.addSleepyPlayer(player);	
+		}
 		
 		return true;
 	}
