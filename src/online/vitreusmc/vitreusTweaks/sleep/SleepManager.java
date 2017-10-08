@@ -7,15 +7,18 @@ import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import net.md_5.bungee.api.ChatColor;
+import online.vitreusmc.vitreusTweaks.VitreusTweaks;
 
 public class SleepManager {
 
 	private static ArrayList<Player> sleepingPlayers = new ArrayList<Player>();
 	private static ArrayList<Player> sleepyPlayers = new ArrayList<Player>();
 	private static boolean someoneSleeping;
-	
+	private static boolean voting;
 	
 	public static void sendStatusUpdate(Server server, World world) {
 		server.broadcastMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Sleep: " + ChatColor.RESET + ChatColor.DARK_AQUA + "Number of Sleepy Sheep > " + getSleepingPercent(world) + "%");
@@ -27,11 +30,29 @@ public class SleepManager {
 	
 	public static void failSleepVote(Server server, World world) {
 		server.broadcastMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Sleep: " + ChatColor.RESET + ChatColor.RED + "No one is sleeping anymore!");
+		sleepingPlayers = new ArrayList<Player>();
+		sleepyPlayers = new ArrayList<Player>();
+		someoneSleeping = false;
+		voting = false;
 	}
 	
 	public static void passSleepVote(Server server, World world) {
-		server.broadcastMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Sleep: " + ChatColor.RESET + ChatColor.GREEN + "Good morning... Vitreus!");
-		world.setTime(0);
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				server.broadcastMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Sleep: " + ChatColor.RESET + ChatColor.GREEN + "Good morning... Vitreus!");
+				world.setTime(0);
+				
+				if (world.hasStorm()) {
+					world.setWeatherDuration(1);					
+				}
+				
+				sleepingPlayers = new ArrayList<Player>();
+				sleepyPlayers = new ArrayList<Player>();
+				someoneSleeping = false;
+				voting = false;
+			}
+		}.runTaskLaterAsynchronously(JavaPlugin.getPlugin(VitreusTweaks.class), 20);
 	}
 	
 	public static void addSleepingPlayer(Player player) {
@@ -40,10 +61,13 @@ public class SleepManager {
 		
 		sleepingPlayers.add(player);
 		
-		if (getSleepingPercent(world) > 50) {
+		if (getSleepingPercent(world) > 50 && voting) {
+			sendStatusUpdate(server, world);
 			passSleepVote(server, world);
+			voting = false;
 		} else {
 			sendStatusUpdate(server, world);
+			voting = true;
 			someoneSleeping = true;
 		}		
 	}
@@ -56,8 +80,9 @@ public class SleepManager {
 		
 		if (sleepingPlayers.size() > 0) {
 			sendStatusUpdate(server, world);
-		} else {
+		} else if (voting) {
 			failSleepVote(server, world);
+			voting = false;
 			someoneSleeping = false;
 		}
 	}
@@ -68,8 +93,9 @@ public class SleepManager {
 		
 		sleepyPlayers.add(player);
 		
-		if (getSleepingPercent(world) > 50) {
+		if (getSleepingPercent(world) > 50 && voting) {
 			passSleepVote(server, world);
+			voting = false;
 		} else {
 			sendStatusUpdate(server, world);
 		}	
