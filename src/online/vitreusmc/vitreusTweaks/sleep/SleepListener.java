@@ -15,7 +15,7 @@ public class SleepListener implements Listener {
 	public void onBedEnter(PlayerBedEnterEvent event) {
 		
 		if (!SleepManager.isSomeoneSleeping()) {
-			SleepManager.startSleepVote(Bukkit.getServer(), event.getBed().getWorld());
+			SleepManager.startSleepVote(Bukkit.getServer());
 		}
 		
 		Player sleepingPlayer = event.getPlayer();
