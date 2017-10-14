@@ -37,7 +37,7 @@ public class SleepManager {
 		voting = false;
 	}
 	
-	public static void passSleepVote(Server server) {
+	public static void passSleepVote(Server server) {		
 		new BukkitRunnable() {
 			@Override
 			public void run() {
