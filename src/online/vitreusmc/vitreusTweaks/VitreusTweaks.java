@@ -10,6 +10,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import online.vitreusmc.vitreusTweaks.armorstand.ManipulateArmorStandCommand;
 import online.vitreusmc.vitreusTweaks.gags.PickupCommand;
+import online.vitreusmc.vitreusTweaks.navigation.CompassCommand;
+import online.vitreusmc.vitreusTweaks.navigation.MapCommand;
 import online.vitreusmc.vitreusTweaks.sleep.SleepListener;
 import online.vitreusmc.vitreusTweaks.sleep.SleepyCommand;
 
@@ -48,12 +50,10 @@ public class VitreusTweaks extends JavaPlugin {
 	
 	// Initializes command executors and registers them with the plugin manager.
 	private void registerExecutors() {
-		CommandExecutor manipulateArmorStandCommand = new ManipulateArmorStandCommand();
-		CommandExecutor sleepyCommand = new SleepyCommand();
-		CommandExecutor pickupCommand = new PickupCommand();
-		
-		getCommand("armorstand").setExecutor(manipulateArmorStandCommand);
-		getCommand("sleepy").setExecutor(sleepyCommand);
-		getCommand("pickup").setExecutor(pickupCommand);			
+		getCommand("armorstand").setExecutor(new ManipulateArmorStandCommand());
+		getCommand("sleepy").setExecutor(new SleepyCommand());
+		getCommand("pickup").setExecutor(new PickupCommand());	
+		getCommand("map").setExecutor(new MapCommand());
+		getCommand("compass").setExecutor(new CompassCommand());
 	}
 }
