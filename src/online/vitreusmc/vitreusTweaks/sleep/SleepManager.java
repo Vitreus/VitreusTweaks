@@ -115,6 +115,16 @@ public class SleepManager {
 		totalSleepingPlayers.addAll(sleepingPlayers);
 		totalSleepingPlayers.addAll(sleepyPlayers);
 				
+		for (Player player : onlinePlayers) {
+			try {
+				if (player.getMetadata("idle.afk").get(0).asBoolean()) {
+					onlinePlayers.remove(player);
+				}
+			} catch (Exception exception) {
+				
+			}
+		}
+		
 		return (int) (((double) ((float) totalSleepingPlayers.size() / (float) onlinePlayers.size())) * 100);
 	}
 	
