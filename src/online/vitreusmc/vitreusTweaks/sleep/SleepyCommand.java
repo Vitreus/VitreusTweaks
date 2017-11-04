@@ -29,7 +29,7 @@ public class SleepyCommand implements CommandExecutor {
 		}
 		
 		if (world.getEnvironment() == Environment.NETHER) {
-			player.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Sleep: " + ChatColor.RESET + "" + ChatColor.RED + "You're face is too busy melting to sleep. Besides, you're in another dimension.");
+			player.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Sleep: " + ChatColor.RESET + "" + ChatColor.RED + "Your face is too busy melting to sleep. Besides, you're in another dimension.");
 			return true;
 		}
 		

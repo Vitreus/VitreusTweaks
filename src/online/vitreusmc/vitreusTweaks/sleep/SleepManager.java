@@ -2,8 +2,8 @@ package online.vitreusmc.vitreusTweaks.sleep;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -111,21 +111,22 @@ public class SleepManager {
 	public static double getSleepingPercent() {
 		List<Player> onlinePlayers = overworld.getPlayers();
 		List<Player> totalSleepingPlayers = new ArrayList();
+		List<Player> countedPlayers = new ArrayList();
 		
 		totalSleepingPlayers.addAll(sleepingPlayers);
 		totalSleepingPlayers.addAll(sleepyPlayers);
 				
 		for (Player player : onlinePlayers) {
 			try {
-				if (player.getMetadata("idle.afk").get(0).asBoolean()) {
-					onlinePlayers.remove(player);
+				if (!player.getMetadata("idle.afk").get(0).asBoolean()) {
+					countedPlayers.add(player);
 				}
 			} catch (Exception exception) {
 				
 			}
 		}
 		
-		return (int) (((double) ((float) totalSleepingPlayers.size() / (float) onlinePlayers.size())) * 100);
+		return (int) (((double) ((float) totalSleepingPlayers.size() / (float) countedPlayers.size())) * 100);
 	}
 	
 	public static boolean isSomeoneSleeping() {
