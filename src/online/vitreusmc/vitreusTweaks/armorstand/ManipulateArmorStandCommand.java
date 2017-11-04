@@ -120,7 +120,7 @@ public class ManipulateArmorStandCommand implements CommandExecutor {
 				String value = "";
 				
 				for (int i = 2; i < args.length; i++) {
-					value += args[i];
+					value += " " + args[i];
 				}
 				
 				ArmorStand result = change(nearestArmorStand, option, value);
