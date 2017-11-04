@@ -30,3 +30,6 @@ commands:
     description: Set your compass' coordinates!
     usage: /compass <here|bed|spawn> || <x> <y> <z>
     aliases: [setcompass]
+  portal:
+    description: Determine where to put your portal in the other dimension!
+    usage: /portal
