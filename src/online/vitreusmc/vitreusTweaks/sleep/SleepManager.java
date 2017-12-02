@@ -27,6 +27,7 @@ public class SleepManager {
 	
 	public static void startSleepVote(Server server) {
 		server.broadcastMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "Sleep: " + ChatColor.RESET + ChatColor.DARK_AQUA + "Someone fell asleep and is dreaming of sheep! Type " + ChatColor.BOLD + ChatColor.AQUA + "/sleepy" + ChatColor.RESET + ChatColor.DARK_AQUA + " to join them!");
+		voting = true;
 	}
 	
 	public static void failSleepVote(Server server) {
