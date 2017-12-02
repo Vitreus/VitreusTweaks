@@ -2,14 +2,12 @@ package online.vitreusmc.vitreusTweaks;
 
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Server;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import online.vitreusmc.vitreusTweaks.armorstand.ManipulateArmorStandCommand;
+import online.vitreusmc.vitreusConnect.VitreusDB;
 import online.vitreusmc.vitreusTweaks.end.DragonListener;
 import online.vitreusmc.vitreusTweaks.gags.PickupCommand;
 import online.vitreusmc.vitreusTweaks.navigation.CompassCommand;
@@ -25,6 +23,7 @@ public class VitreusTweaks extends JavaPlugin {
 	private Server server;
 	private Logger logger;
 	private FileConfiguration config;
+	private VitreusDB vitreusDB;
 	
 	// Runs when Spigot enables the plugin.
 	@Override
@@ -36,12 +35,33 @@ public class VitreusTweaks extends JavaPlugin {
 		logger.info("VitreusTweaks Enabled");
 		
 		setupConfig();
+		setupDatabase();
 		registerListeners();
 		registerExecutors();
 	}
 	
 	private void setupConfig() {
+		config.addDefault("db.host", "127.0.0.1");
+		config.addDefault("db.port", 27017);
+		config.addDefault("db.user", "admin");
+		config.addDefault("db.userdb", "admin");
+		config.addDefault("db.password", "password");
+		config.addDefault("db.name", "vitreus");
+		
+		config.options().copyDefaults(true);
 		saveConfig();
+	}
+	
+	private void setupDatabase() {
+		String host = config.getString("db.host");
+		int port = config.getInt("db.port");
+		String user = config.getString("db.user");
+		String userDb = config.getString("db.userdb");
+		String password = config.getString("db.password");
+		String db = config.getString("db.name");
+		
+		vitreusDB = new VitreusDB(host, port, user, userDb, password, db);
+		vitreusDB.connect();
 	}
 	
 	// Initializes event listeners and registers them with the plugin manager.

@@ -1,0 +1,91 @@
+
+<project>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>online.vitreusmc.vitreusTweaks</groupId>
+	<artifactId>VitreusTweaks</artifactId>
+	<version>0.2.0</version>
+	
+	<packaging>jar</packaging>
+	
+	<repositories>
+    	<repository>
+	        <id>spigot-repo</id>
+        	<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    	</repository>
+	</repositories>
+
+	<dependencies>
+
+    	<!--Spigot API-->
+    	<dependency>
+        	<groupId>org.spigotmc</groupId>
+        	<artifactId>spigot-api</artifactId>
+			<version>1.12.2-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+	    </dependency>
+    
+    	<!--Bukkit API-->
+    	<dependency>
+        	<groupId>org.bukkit</groupId>
+	    	<artifactId>bukkit</artifactId>
+			<version>1.12.2-R0.1-SNAPSHOT</version>
+        	<scope>provided</scope>
+    	</dependency>
+    
+    	<!--Vitreus-->
+
+    	<dependency>
+    		<groupId>online.vitreusmc.vitreusConnect</groupId>
+    		<artifactId>VitreusConnect</artifactId>
+    		<version>0.2.0</version>
+    		<scope>system</scope>
+    		<systemPath>/home/mason/Workspace/Vitreus/VitreusConnect/target/VitreusConnect-0.2.0.jar</systemPath>
+    	</dependency>
+    	
+	</dependencies>
+	
+	<build>
+		<defaultGoal>package</defaultGoal>
+		<resources>
+			<resource>
+				<directory>src</directory>
+			</resource>
+			<resource>
+				<directory>resources</directory>
+			</resource>
+		</resources>
+    	<plugins>
+    		<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-compiler-plugin</artifactId>
+			    <version>3.2</version>
+			    <configuration>
+			        <source>1.8</source>
+			        <target>1.8</target>
+			    </configuration>
+			</plugin>
+        	<plugin>
+            	<groupId>org.apache.maven.plugins</groupId>
+            	<artifactId>maven-shade-plugin</artifactId>
+            	<version>2.3</version>
+            	<executions>
+                	<execution>
+                    	<phase>package</phase>
+                    	<goals>
+                        	<goal>shade</goal>
+                    	</goals>
+                    	<configuration>
+                        	<artifactSet>
+                            	<includes>
+                                	<include>online.vitreusmc.vitreusConnect</include>
+                            	</includes>
+                        	</artifactSet>
+                        	<createDependencyReducedPom>false</createDependencyReducedPom>
+                    	</configuration>
+                	</execution>
+            	</executions>
+        	</plugin>
+    	</plugins>
+	</build>
+</project>
