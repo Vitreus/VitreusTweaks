@@ -1,8 +1,6 @@
-
-.settings
+.settings/
 .classpath
 .project
 
-target
-bin
-server
+target/
+bin/

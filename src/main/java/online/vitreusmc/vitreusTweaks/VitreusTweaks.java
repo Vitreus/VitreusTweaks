@@ -1,10 +1,14 @@
 package online.vitreusmc.vitreusTweaks;
 
+import java.io.File;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Server;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import online.vitreusmc.vitreusTweaks.armorstand.ManipulateArmorStandCommand;
 import online.vitreusmc.vitreusConnect.VitreusDB;
@@ -23,7 +27,8 @@ public class VitreusTweaks extends JavaPlugin {
 	private Server server;
 	private Logger logger;
 	private FileConfiguration config;
-	private VitreusDB vitreusDB;
+	private YamlConfiguration dbConfig = new YamlConfiguration();
+	private VitreusDB database;
 	
 	// Runs when Spigot enables the plugin.
 	@Override
@@ -34,34 +39,16 @@ public class VitreusTweaks extends JavaPlugin {
 		
 		logger.info("VitreusTweaks Enabled");
 		
-		setupConfig();
 		setupDatabase();
 		registerListeners();
 		registerExecutors();
 	}
 	
-	private void setupConfig() {
-		config.addDefault("db.host", "127.0.0.1");
-		config.addDefault("db.port", 27017);
-		config.addDefault("db.user", "admin");
-		config.addDefault("db.userdb", "admin");
-		config.addDefault("db.password", "password");
-		config.addDefault("db.name", "vitreus");
-		
-		config.options().copyDefaults(true);
-		saveConfig();
-	}
-	
 	private void setupDatabase() {
-		String host = config.getString("db.host");
-		int port = config.getInt("db.port");
-		String user = config.getString("db.user");
-		String userDb = config.getString("db.userdb");
-		String password = config.getString("db.password");
-		String db = config.getString("db.name");
+		loadDatabaseConfig();
 		
-		vitreusDB = new VitreusDB(host, port, user, userDb, password, db);
-		vitreusDB.connect();
+		database = new VitreusDB(dbConfig);
+		database.connect();
 	}
 	
 	// Initializes event listeners and registers them with the plugin manager.
@@ -78,5 +65,26 @@ public class VitreusTweaks extends JavaPlugin {
 		getCommand("map").setExecutor(new MapCommand());
 		getCommand("compass").setExecutor(new CompassCommand());
 		getCommand("portal").setExecutor(new PortalCommand());
+	}
+	
+	private void loadDatabaseConfig() {
+		File configFile = new File(getDataFolder().getParentFile().getParentFile(), "vmc-db.yml");
+		
+		try {
+			if (configFile.createNewFile()) logger.log(Level.WARNING, "Database Configuration was just Created and needs to be Populated...");
+			
+			dbConfig.load(configFile);
+			dbConfig.addDefault("db.name", "vitreus");
+			dbConfig.addDefault("db.host", "localhost");
+			dbConfig.addDefault("db.port", 27017);
+			dbConfig.addDefault("db.user.authDBName", "auth");
+			dbConfig.addDefault("db.user.name", "admin");
+			dbConfig.addDefault("db.user.password", "password");
+			dbConfig.options().copyDefaults(true);
+			dbConfig.save(configFile);
+		} catch (Exception exception) {
+			logger.log(Level.SEVERE, "Database Configuration Failed to Load..." + exception.getMessage(), exception);
+		}
+
 	}
 }
