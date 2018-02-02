@@ -1,14 +1,14 @@
 package online.vitreusmc.vitreusTweaks;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Server;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import online.vitreusmc.vitreusTweaks.armorstand.ManipulateArmorStandCommand;
 import online.vitreusmc.vitreusConnect.VitreusDB;
@@ -20,25 +20,18 @@ import online.vitreusmc.vitreusTweaks.navigation.PortalCommand;
 import online.vitreusmc.vitreusTweaks.sleep.SleepListener;
 import online.vitreusmc.vitreusTweaks.sleep.SleepyCommand;
 
-// Main plugin class. Everything starts here.
 public class VitreusTweaks extends JavaPlugin {
 
-	// Class Fields
 	private Server server;
 	private Logger logger;
-	private FileConfiguration config;
-	private YamlConfiguration dbConfig = new YamlConfiguration();
+	private YamlConfiguration DBConfig = new YamlConfiguration();
 	private VitreusDB database;
 	
-	// Runs when Spigot enables the plugin.
 	@Override
 	public void onEnable() {		
 		this.server = getServer();
 		this.logger = getLogger();
-		this.config = getConfig();
-		
-		logger.info("VitreusTweaks Enabled");
-		
+				
 		setupDatabase();
 		registerListeners();
 		registerExecutors();
@@ -47,17 +40,15 @@ public class VitreusTweaks extends JavaPlugin {
 	private void setupDatabase() {
 		loadDatabaseConfig();
 		
-		database = new VitreusDB(dbConfig);
+		database = new VitreusDB(DBConfig);
 		database.connect();
 	}
 	
-	// Initializes event listeners and registers them with the plugin manager.
 	private void registerListeners() {	
 		server.getPluginManager().registerEvents(new SleepListener(), this);
 		server.getPluginManager().registerEvents(new DragonListener(), this);
 	}
 	
-	// Initializes command executors and registers them with the plugin manager.
 	private void registerExecutors() {
 		getCommand("armorstand").setExecutor(new ManipulateArmorStandCommand());
 		getCommand("sleepy").setExecutor(new SleepyCommand());
@@ -68,22 +59,27 @@ public class VitreusTweaks extends JavaPlugin {
 	}
 	
 	private void loadDatabaseConfig() {
-		File configFile = new File(getDataFolder().getParentFile().getParentFile(), "vmc-db.yml");
-		
+		// Loads database configuration file located in the server's base directory.
+		File configFile = new File("./vmc-db.yml");
+
 		try {
 			if (configFile.createNewFile()) logger.log(Level.WARNING, "Database Configuration was just Created and needs to be Populated...");
 			
-			dbConfig.load(configFile);
-			dbConfig.addDefault("db.name", "vitreus");
-			dbConfig.addDefault("db.host", "localhost");
-			dbConfig.addDefault("db.port", 27017);
-			dbConfig.addDefault("db.user.authDBName", "auth");
-			dbConfig.addDefault("db.user.name", "admin");
-			dbConfig.addDefault("db.user.password", "password");
-			dbConfig.options().copyDefaults(true);
-			dbConfig.save(configFile);
-		} catch (Exception exception) {
-			logger.log(Level.SEVERE, "Database Configuration Failed to Load..." + exception.getMessage(), exception);
+			DBConfig.load(configFile);
+			DBConfig.addDefault("db.name", "vitreus");
+			DBConfig.addDefault("db.host", "localhost");
+			DBConfig.addDefault("db.port", 27017);
+			DBConfig.addDefault("db.user.authDBName", "auth");
+			DBConfig.addDefault("db.user.name", "admin");
+			DBConfig.addDefault("db.user.password", "password");
+			DBConfig.options().copyDefaults(true);
+			DBConfig.save(configFile);
+		}
+		catch (IOException exception) {
+			logger.log(Level.SEVERE, "Could not load database configuration file" + exception.getMessage(), exception);
+		}
+		catch (InvalidConfigurationException exception) {
+			logger.log(Level.SEVERE, "Could not load database configuration file" + exception.getMessage(), exception);
 		}
 
 	}
