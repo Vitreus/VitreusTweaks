@@ -34,13 +34,10 @@
     	</dependency>
     
     	<!--Vitreus-->
-
     	<dependency>
     		<groupId>online.vitreusmc.vitreusConnect</groupId>
     		<artifactId>VitreusConnect</artifactId>
-    		<version>0.2.0</version>
-    		<scope>system</scope>
-    		<systemPath>/home/mason/Workspace/Vitreus/VitreusConnect/target/VitreusConnect-0.2.0.jar</systemPath>
+    		<version>0.2.0-SNAPSHOT</version>
     	</dependency>
     	
 	</dependencies>
