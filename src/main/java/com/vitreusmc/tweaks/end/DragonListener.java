@@ -1,4 +1,4 @@
-package online.vitreusmc.vitreusTweaks.end;
+package com.vitreusmc.tweaks.end;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,8 +19,9 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.vitreusmc.tweaks.VitreusTweaks;
+
 import net.md_5.bungee.api.ChatColor;
-import online.vitreusmc.vitreusTweaks.VitreusTweaks;
 
 public class DragonListener implements Listener {
 

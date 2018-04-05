@@ -1,4 +1,4 @@
-package online.vitreusmc.vitreusTweaks.navigation;
+package com.vitreusmc.tweaks.navigation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -33,7 +33,7 @@ public class MapCommand implements CommandExecutor {
 		x = (int) location.getX();
 		y = (int) location.getY();
 		z = (int) location.getZ();
-		url = "http://vitreus-mc.com/map/#vitreus-world-one_isometric/0/6/" + x + "/" + z + "/64";
+		url = String.format("http://vitreus-mc.com/dynmap/?worldname=vitreus-world-one&mapname=surface&zoom=5&x=%d&y=%d&z=%d", x, y, z);
 		
 		TextComponent urlComponent = new TextComponent();
 		urlComponent.setColor(ChatColor.GREEN);

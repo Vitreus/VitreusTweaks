@@ -1,12 +1,12 @@
 main: online.vitreusmc.vitreusTweaks.VitreusTweaks
 
 name: VitreusTweaks
-version: 0.0.1
+version: 0.5.0
 description:  A Bukkit plugin created for the Vitreus Minecraft community that adds simple, vanilla-like features.
 permissions:
   module.gags:
     description: Allows the execution of gag commands.
-    default: false
+    default: op
 
 commands:
   armorstand:

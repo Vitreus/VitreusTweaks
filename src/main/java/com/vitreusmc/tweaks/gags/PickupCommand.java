@@ -1,6 +1,5 @@
-package online.vitreusmc.vitreusTweaks.gags;
+package com.vitreusmc.tweaks.gags;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,9 +9,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-
-import com.google.common.collect.Iterables;
-
 
 public class PickupCommand implements CommandExecutor {
 

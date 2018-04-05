@@ -1,4 +1,4 @@
-package online.vitreusmc.vitreusTweaks.navigation;
+package com.vitreusmc.tweaks.navigation;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;

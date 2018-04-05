@@ -1,4 +1,4 @@
-package online.vitreusmc.vitreusTweaks.armorstand;
+package com.vitreusmc.tweaks.armorstand;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -19,10 +19,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
+import com.vitreusmc.tweaks.VitreusTweaks;
+import com.vitreusmc.tweaks.armorstand.ui.ManipulationTextComponent;
+
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
-import online.vitreusmc.vitreusTweaks.VitreusTweaks;
-import online.vitreusmc.vitreusTweaks.armorstand.ui.ManipulationTextComponent;
 
 public class ManipulateArmorStandCommand implements CommandExecutor {
 
